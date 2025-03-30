@@ -1,25 +1,127 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>我的网站</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的文章网站</title>
     <style>
         body {
-            font-family: Arial;
+            font-family: 'Arial', sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            line-height: 1.6;
         }
-        h1 {
-            color: #2e86c1;
+        .article {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+        .article-form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        textarea {
+            width: 100%;
+            min-height: 150px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>欢迎来到我的网站！</h1>
-    <p>这是用 HTML 自定义的页面。</p>
+    <h1>我的文章网站</h1>
+    
+    <div id="articles">
+        <!-- 文章列表将在这里动态生成 -->
+    </div>
+    
+    <div class="article-form">
+        <h2>发布新文章</h2>
+        <input type="text" id="title" placeholder="文章标题" required>
+        <textarea id="content" placeholder="文章内容..." required></textarea>
+        <button onclick="addArticle()">发布文章</button>
+    </div>
+
     <script>
-        // 可以添加 JavaScript
-        console.log("Hello World!");
+       // 存储文章的数组
+let articles = [];
+
+// 页面加载时显示已有文章
+window.onload = function() {
+    loadArticles();
+};
+
+// 加载文章
+function loadArticles() {
+    // 从本地存储获取文章
+    const savedArticles = localStorage.getItem('articles');
+    if (savedArticles) {
+        articles = JSON.parse(savedArticles);
+    }
+    
+    // 显示文章
+    displayArticles();
+}
+
+// 显示文章
+function displayArticles() {
+    const articlesContainer = document.getElementById('articles');
+    articlesContainer.innerHTML = '';
+    
+    articles.forEach((article, index) => {
+        const articleDiv = document.createElement('div');
+        articleDiv.className = 'article';
+        articleDiv.innerHTML = `
+            <h2>${article.title}</h2>
+            <p>${article.content}</p>
+            <small>${new Date(article.date).toLocaleString()}</small>
+            <button onclick="deleteArticle(${index})">删除</button>
+        `;
+        articlesContainer.appendChild(articleDiv);
+    });
+}
+
+// 添加新文章
+function addArticle() {
+    const title = document.getElementById('title').value;
+    const content = document.getElementById('content').value;
+    
+    if (title && content) {
+        const newArticle = {
+            title: title,
+            content: content,
+            date: new Date().toISOString()
+        };
+        
+        articles.unshift(newArticle); // 添加到数组开头
+        localStorage.setItem('articles', JSON.stringify(articles));
+        
+        // 清空表单
+        document.getElementById('title').value = '';
+        document.getElementById('content').value = '';
+        
+        // 刷新显示
+        displayArticles();
+    } else {
+        alert('请填写标题和内容！');
+    }
+}
+
+// 删除文章
+function deleteArticle(index) {
+    if (confirm('确定要删除这篇文章吗？')) {
+        articles.splice(index, 1);
+        localStorage.setItem('articles', JSON.stringify(articles));
+        displayArticles();
+    }
+}
     </script>
 </body>
 </html>
