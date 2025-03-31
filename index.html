@@ -29,7 +29,6 @@
             overflow-x: hidden;
         }
         
-        /* 粒子背景 */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -39,7 +38,6 @@
             z-index: -1;
         }
         
-        /* 布局容器 */
         .app-container {
             display: grid;
             grid-template-columns: 280px 1fr;
@@ -47,7 +45,6 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* 侧边栏 */
         .sidebar {
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px);
@@ -153,7 +150,6 @@
             background: var(--accent);
         }
         
-        /* 主内容区 */
         .main-content {
             padding: 2rem 3rem;
             position: relative;
@@ -177,7 +173,6 @@
             display: none;
         }
         
-        /* 文章卡片 */
         .articles-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -191,16 +186,6 @@
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s forwards;
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
         
         .article-card:hover {
@@ -249,10 +234,6 @@
             color: var(--gray);
             margin-bottom: 1.5rem;
             line-height: 1.6;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
         
         .article-actions {
@@ -297,83 +278,6 @@
             transform: scale(1.1);
         }
         
-        /* 发布表单 */
-        .article-form {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-top: 2rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .form-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(43, 88, 118, 0.2);
-        }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        .submit-btn {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .submit-btn .spinner {
-            display: none;
-            margin-right: 0.8rem;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* 响应式设计 */
         @media (max-width: 992px) {
             .app-container {
                 grid-template-columns: 1fr;
@@ -407,19 +311,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- 粒子背景 -->
     <div id="particles-js"></div>
     
-    <!-- 移动端菜单按钮 -->
     <button class="mobile-menu-btn" id="mobile-menu-btn">
         <i class="fas fa-bars"></i>
     </button>
     
     <div class="app-container">
-        <!-- 侧边栏 -->
-        <aside class="sidebar" id="sidebar">
+        <aside class="sidebar">
             <div class="sidebar-header">
-                <a href="#" class="logo">
+                <a href="index.html" class="logo">
                     <i class="fas fa-atom"></i>
                     TechSphere
                 </a>
@@ -427,27 +328,27 @@
             
             <ul class="sidebar-menu">
                 <li class="menu-item">
-                    <a href="#" class="menu-link active" data-section="home">
+                    <a href="index.html" class="menu-link active">
                         <i class="fas fa-home"></i>
                         <span>首页</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link" data-section="favorites">
-                        <i class="fas fa-star"></i>
-                        <span>我的收藏</span>
+                    <a href="articles/" class="menu-link">
+                        <i class="fas fa-file-alt"></i>
+                        <span>所有文章</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link" data-section="write">
-                        <i class="fas fa-pen"></i>
-                        <span>写文章</span>
+                    <a href="about.html" class="menu-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>关于</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <i class="fas fa-user"></i>
-                        <span>个人中心</span>
+                    <a href="contact.html" class="menu-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>联系</span>
                     </a>
                 </li>
             </ul>
@@ -458,153 +359,85 @@
                     <span>热门标签</span>
                 </h3>
                 <div class="tags-container">
-                    <a href="#" class="tag">JavaScript</a>
-                    <a href="#" class="tag">React</a>
-                    <a href="#" class="tag">Vue</a>
-                    <a href="#" class="tag">Node.js</a>
-                    <a href="#" class="tag">CSS</a>
-                    <a href="#" class="tag">Webpack</a>
+                    <a href="articles/tag/javascript.html" class="tag">JavaScript</a>
+                    <a href="articles/tag/vue.html" class="tag">Vue</a>
+                    <a href="articles/tag/css.html" class="tag">CSS</a>
                 </div>
-            </div>
-            
-            <div class="sidebar-section">
-                <h3 class="section-title">
-                    <i class="fas fa-fire"></i>
-                    <span>热门文章</span>
-                </h3>
-                <ul class="sidebar-menu" id="popular-articles-menu">
-                    <!-- 动态生成热门文章 -->
-                </ul>
             </div>
         </aside>
-        
-        <!-- 主内容区 -->
+
         <main class="main-content">
-            <section id="home-section">
-                <h1>最新技术文章</h1>
-                <div class="articles-grid" id="articles-grid">
-                    <!-- 动态生成文章卡片 -->
-                </div>
-            </section>
+            <h1>最新技术文章</h1>
             
-            <section id="favorites-section" style="display: none;">
-                <h1>我的收藏</h1>
-                <div class="articles-grid" id="favorites-grid">
-                    <!-- 动态生成收藏文章 -->
+            <div class="articles-grid">
+                <div class="article-card">
+                    <div class="article-image" style="background-image: url('https://source.unsplash.com/random/600x400/?javascript')">
+                        <span class="article-tag">JavaScript</span>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span>2023-08-20</span>
+                            <span>128 赞</span>
+                        </div>
+                        <h3><a href="articles/web-performance.html">Web性能优化完全指南</a></h3>
+                        <p class="article-excerpt">全面讲解Web性能优化的关键技术点，从加载时间到渲染性能的完整解决方案。</p>
+                        <div class="article-actions">
+                            <a href="articles/web-performance.html" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+                            <button class="favorite-btn active">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </section>
-            
-            <section id="write-section" style="display: none;">
-                <div class="article-form">
-                    <h2 class="form-title">发布新文章</h2>
-                    <div class="form-group">
-                        <label for="article-title" class="form-label">文章标题</label>
-                        <input type="text" id="article-title" class="form-control" placeholder="输入文章标题">
+                
+                <div class="article-card">
+                    <div class="article-image" style="background-image: url('https://source.unsplash.com/random/600x400/?vue')">
+                        <span class="article-tag">Vue</span>
                     </div>
-                    <div class="form-group">
-                        <label for="article-content" class="form-label">文章内容</label>
-                        <textarea id="article-content" class="form-control" placeholder="输入文章内容..."></textarea>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span>2023-08-15</span>
+                            <span>95 赞</span>
+                        </div>
+                        <h3><a href="articles/vue-optimization.html">Vue 3性能优化实战</a></h3>
+                        <p class="article-excerpt">提升Vue应用性能的10个关键技巧，让你的应用运行如飞。</p>
+                        <div class="article-actions">
+                            <a href="articles/vue-optimization.html" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+                            <button class="favorite-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="article-tag" class="form-label">文章标签</label>
-                        <input type="text" id="article-tag" class="form-control" placeholder="输入标签，用逗号分隔">
-                    </div>
-                    <button class="submit-btn" id="submit-btn">
-                        <span class="spinner"><i class="fas fa-spinner"></i></span>
-                        <span class="btn-text">发布文章</span>
-                    </button>
                 </div>
-            </section>
+            </div>
         </main>
     </div>
 
-    <!-- 粒子JS库 -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
     <script>
-        // 文章数据
-        let articles = [
-            {
-                id: 1,
-                title: "深入理解JavaScript闭包",
-                content: "闭包是JavaScript中一个非常重要的概念，它允许函数访问并记住其词法作用域，即使函数在其词法作用域之外执行。本文将深入探讨闭包的工作原理、使用场景以及常见问题。",
-                tag: "JavaScript",
-                date: "2023-05-15",
-                likes: 128,
-                isFavorite: true,
-                image: "https://source.unsplash.com/random/600x400/?javascript"
-            },
-            {
-                id: 2,
-                title: "CSS Grid布局完全指南",
-                content: "CSS Grid布局是创建复杂网页布局的强大工具。本文将从基础概念讲起，逐步介绍Grid的各种属性和使用技巧，帮助你快速掌握这一现代布局方式。",
-                tag: "CSS",
-                date: "2023-06-02",
-                likes: 95,
-                isFavorite: false,
-                image: "https://source.unsplash.com/random/600x400/?css"
-            },
-            {
-                id: 3,
-                title: "Vue 3组合式API实战",
-                content: "Vue 3引入了组合式API，这是一种全新的编写组件逻辑的方式。本文将带你了解组合式API的优势，并通过实际案例展示如何使用它来构建可复用的逻辑。",
-                tag: "Vue",
-                date: "2023-06-10",
-                likes: 76,
-                isFavorite: true,
-                image: "https://source.unsplash.com/random/600x400/?vue"
-            },
-            {
-                id: 4,
-                title: "React Hooks最佳实践",
-                content: "Hooks彻底改变了React组件的编写方式。本文将分享一些Hooks的最佳实践，帮助你避免常见陷阱并编写更高效的React代码。",
-                tag: "React",
-                date: "2023-06-18",
-                likes: 88,
-                isFavorite: false,
-                image: "https://source.unsplash.com/random/600x400/?react"
-            },
-            {
-                id: 5,
-                title: "Node.js性能优化技巧",
-                content: "Node.js以其高性能著称，但仍有许多优化空间。本文将介绍一些实用的Node.js性能优化技巧，帮助你构建更高效的服务器应用。",
-                tag: "Node.js",
-                date: "2023-06-25",
-                likes: 64,
-                isFavorite: false,
-                image: "https://source.unsplash.com/random/600x400/?nodejs"
-            }
-        ];
-        
-        // DOM元素
-        const sidebar = document.getElementById('sidebar');
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const articlesGrid = document.getElementById('articles-grid');
-        const favoritesGrid = document.getElementById('favorites-grid');
-        const popularArticlesMenu = document.getElementById('popular-articles-menu');
-        const articleTitleInput = document.getElementById('article-title');
-        const articleContentInput = document.getElementById('article-content');
-        const articleTagInput = document.getElementById('article-tag');
-        const submitBtn = document.getElementById('submit-btn');
-        const menuLinks = document.querySelectorAll('.menu-link[data-section]');
-        const sections = {
-            home: document.getElementById('home-section'),
-            favorites: document.getElementById('favorites-section'),
-            write: document.getElementById('write-section')
-        };
-        
-        // 初始化
-        document.addEventListener('DOMContentLoaded', () => {
-            // 初始化粒子背景
+        document.addEventListener('DOMContentLoaded', function() {
             particlesJS('particles-js', {
                 particles: {
-                    number: { value: 60, density: { enable: true, value_area: 800 } },
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
                     color: { value: "#ffffff" },
                     shape: { type: "circle" },
                     opacity: { value: 0.5, random: true },
                     size: { value: 3, random: true },
-                    line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
-                    move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
+                    line_linked: { 
+                        enable: true, 
+                        distance: 150, 
+                        color: "#ffffff", 
+                        opacity: 0.4, 
+                        width: 1 
+                    },
+                    move: { 
+                        enable: true, 
+                        speed: 2, 
+                        direction: "none", 
+                        random: true, 
+                        straight: false, 
+                        out_mode: "out" 
+                    }
                 },
                 interactivity: {
                     detect_on: "canvas",
@@ -614,283 +447,11 @@
                     }
                 }
             });
-            
-            // 从本地存储加载数据
-            const savedArticles = localStorage.getItem('articles');
-            if (savedArticles) {
-                articles = JSON.parse(savedArticles);
-            }
-            
-            // 渲染内容
-            renderArticles();
-            renderFavorites();
-            renderPopularArticlesMenu();
-            
-            // 设置事件监听器
-            setupEventListeners();
+
+            document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+                document.querySelector('.sidebar').classList.toggle('open');
+            });
         });
-        
-        // 渲染文章列表
-        function renderArticles() {
-            articlesGrid.innerHTML = '';
-            
-            if (articles.length === 0) {
-                articlesGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:white;">暂无文章，发布你的第一篇文章吧！</p>';
-                return;
-            }
-            
-            articles.forEach((article, index) => {
-                const articleCard = document.createElement('div');
-                articleCard.className = 'article-card';
-                articleCard.style.animationDelay = `${index * 0.1}s`;
-                
-                articleCard.innerHTML = `
-                    <div class="article-image" style="background-image: url('${article.image}')">
-                        <span class="article-tag">${article.tag}</span>
-                    </div>
-                    <div class="article-content">
-                        <div class="article-meta">
-                            <span>${formatDate(article.date)}</span>
-                            <span>${article.likes} 赞</span>
-                        </div>
-                        <h3 class="article-title">${article.title}</h3>
-                        <p class="article-excerpt">${article.content}</p>
-                        <div class="article-actions">
-                            <a href="#" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
-                            <button class="favorite-btn ${article.isFavorite ? 'active' : ''}" data-id="${article.id}">
-                                <i class="fas fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                articlesGrid.appendChild(articleCard);
-            });
-            
-            // 添加收藏按钮事件
-            document.querySelectorAll('.favorite-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const id = parseInt(this.getAttribute('data-id'));
-                    toggleFavorite(id);
-                });
-            });
-        }
-        
-        // 渲染收藏文章
-        function renderFavorites() {
-            favoritesGrid.innerHTML = '';
-            
-            const favoriteArticles = articles.filter(article => article.isFavorite);
-            
-            if (favoriteArticles.length === 0) {
-                favoritesGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:white;">暂无收藏文章</p>';
-                return;
-            }
-            
-            favoriteArticles.forEach((article, index) => {
-                const articleCard = document.createElement('div');
-                articleCard.className = 'article-card';
-                articleCard.style.animationDelay = `${index * 0.1}s`;
-                
-                articleCard.innerHTML = `
-                    <div class="article-image" style="background-image: url('${article.image}')">
-                        <span class="article-tag">${article.tag}</span>
-                    </div>
-                    <div class="article-content">
-                        <div class="article-meta">
-                            <span>${formatDate(article.date)}</span>
-                            <span>${article.likes} 赞</span>
-                        </div>
-                        <h3 class="article-title">${article.title}</h3>
-                        <p class="article-excerpt">${article.content}</p>
-                        <div class="article-actions">
-                            <a href="#" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
-                            <button class="favorite-btn active" data-id="${article.id}">
-                                <i class="fas fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                favoritesGrid.appendChild(articleCard);
-            });
-            
-            // 添加收藏按钮事件
-            document.querySelectorAll('#favorites-grid .favorite-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const id = parseInt(this.getAttribute('data-id'));
-                    toggleFavorite(id);
-                });
-            });
-        }
-        
-        // 渲染侧边栏热门文章
-        function renderPopularArticlesMenu() {
-            popularArticlesMenu.innerHTML = '';
-            
-            // 按点赞数排序
-            const popularArticles = [...articles].sort((a, b) => b.likes - a.likes).slice(0, 3);
-            
-            popularArticles.forEach(article => {
-                const menuItem = document.createElement('li');
-                menuItem.className = 'menu-item';
-                
-                menuItem.innerHTML = `
-                    <a href="#" class="menu-link" data-article-id="${article.id}">
-                        <i class="fas fa-file-alt"></i>
-                        <span>${article.title}</span>
-                    </a>
-                `;
-                
-                popularArticlesMenu.appendChild(menuItem);
-            });
-        }
-        
-        // 切换收藏状态
-        function toggleFavorite(id) {
-            const article = articles.find(a => a.id === id);
-            if (article) {
-                article.isFavorite = !article.isFavorite;
-                localStorage.setItem('articles', JSON.stringify(articles));
-                
-                // 更新UI
-                renderArticles();
-                renderFavorites();
-                
-                // 添加动画效果
-                const btn = document.querySelector(`.favorite-btn[data-id="${id}"]`);
-                if (btn) {
-                    btn.classList.toggle('active');
-                    
-                    // 心跳动画
-                    btn.style.transform = 'scale(1.3)';
-                    setTimeout(() => {
-                        btn.style.transform = '';
-                    }, 300);
-                }
-            }
-        }
-        
-        // 添加新文章
-        function addArticle() {
-            const title = articleTitleInput.value.trim();
-            const content = articleContentInput.value.trim();
-            const tag = articleTagInput.value.trim() || '未分类';
-            
-            if (!title || !content) {
-                alert('请填写标题和内容！');
-                return;
-            }
-            
-            // 显示加载状态
-            submitBtn.disabled = true;
-            submitBtn.querySelector('.spinner').style.display = 'inline-block';
-            submitBtn.querySelector('.btn-text').textContent = '发布中...';
-            
-            // 模拟网络延迟
-            setTimeout(() => {
-                const newArticle = {
-                    id: Date.now(),
-                    title: title,
-                    content: content,
-                    tag: tag,
-                    date: new Date().toISOString(),
-                    likes: 0,
-                    isFavorite: false,
-                    image: `https://source.unsplash.com/random/600x400/?${tag.toLowerCase()}`
-                };
-                
-                articles.unshift(newArticle);
-                localStorage.setItem('articles', JSON.stringify(articles));
-                
-                // 重置表单
-                articleTitleInput.value = '';
-                articleContentInput.value = '';
-                articleTagInput.value = '';
-                
-                // 隐藏加载状态
-                submitBtn.disabled = false;
-                submitBtn.querySelector('.spinner').style.display = 'none';
-                submitBtn.querySelector('.btn-text').textContent = '发布文章';
-                
-                // 重新渲染
-                renderArticles();
-                renderPopularArticlesMenu();
-                
-                // 切换回首页
-                switchSection('home');
-            }, 1000);
-        }
-        
-        // 切换内容区域
-        function switchSection(sectionId) {
-            // 隐藏所有区域
-            Object.values(sections).forEach(section => {
-                section.style.display = 'none';
-            });
-            
-            // 显示目标区域
-            sections[sectionId].style.display = 'block';
-            
-            // 更新菜单活动状态
-            menuLinks.forEach(link => {
-                if (link.getAttribute('data-section') === sectionId) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-        }
-        
-        // 格式化日期
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-        }
-        
-        // 设置事件监听器
-        function setupEventListeners() {
-            // 移动端菜单按钮
-            mobileMenuBtn.addEventListener('click', () => {
-                sidebar.classList.toggle('open');
-            });
-            
-            // 菜单链接点击
-            menuLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const sectionId = this.getAttribute('data-section');
-                    switchSection(sectionId);
-                    
-                    // 移动端点击后关闭侧边栏
-                    if (window.innerWidth <= 992) {
-                        sidebar.classList.remove('open');
-                    }
-                });
-            });
-            
-            // 提交表单
-            submitBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                addArticle();
-            });
-            
-            // 点击主内容区关闭侧边栏（移动端）
-            document.querySelector('.main-content').addEventListener('click', (e) => {
-                if (window.innerWidth <= 992 && !e.target.closest('#mobile-menu-btn')) {
-                    sidebar.classList.remove('open');
-                }
-            });
-            
-            // 响应式调整
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 992) {
-                    sidebar.classList.remove('open');
-                }
-            });
-        }
     </script>
 </body>
 </html>
