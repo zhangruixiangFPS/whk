@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web性能优化完全指南 - TechSphere</title>
+    <style>
+        :root {
+            --primary: #2b5876;
+            --secondary: #4e4376;
+            --accent: #f54ea2;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            color: var(--dark);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .sidebar {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            color: var(--light);
+            padding: 2rem 1.5rem;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            transform: translateX(0);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            margin-right: 0.8rem;
+            color: var(--accent);
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+        
+        .menu-item {
+            margin-bottom: 0.8rem;
+        }
+        
+        .menu-link {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        
+        .menu-link:hover, .menu-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .menu-link i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 0.8rem;
+        }
+        
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tag {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .tag:hover {
+            background: var(--accent);
+        }
+        
+        .main-content {
+            padding: 2rem 3rem;
+            position: relative;
+        }
+        
+        .mobile-menu-btn {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            display: none;
+        }
+        
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .article-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .article-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .article-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .article-content {
+            padding: 1.5rem;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        .article-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .article-excerpt {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .article-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .read-more:hover {
+            color: var(--accent);
+        }
+        
+        .read-more i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .read-more:hover i {
+            transform: translateX(3px);
+        }
+        
+        .favorite-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .favorite-btn.active {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 992px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: fixed;
+                width: 280px;
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                padding: 5rem 1.5rem 2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .article-full {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            line-height: 1.8;
+        }
+        .article-full h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .article-full h2 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: var(--primary);
+        }
+        .article-full p {
+            margin-bottom: 1rem;
+        }
+        .article-full img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div id="particles-js"></div>
+    
+    <button class="mobile-menu-btn" id="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-atom"></i>
+                    TechSphere
+                </a>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <a href="index.html" class="menu-link active">
+                        <i class="fas fa-home"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="articles/" class="menu-link">
+                        <i class="fas fa-file-alt"></i>
+                        <span>所有文章</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="about.html" class="menu-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>关于</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="contact.html" class="menu-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>联系</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-section">
+                <h3 class="section-title">
+                    <i class="fas fa-tags"></i>
+                    <span>热门标签</span>
+                </h3>
+                <div class="tags-container">
+                    <a href="articles/tag/javascript.html" class="tag">JavaScript</a>
+                    <a href="articles/tag/vue.html" class="tag">Vue</a>
+                    <a href="articles/tag/css.html" class="tag">CSS</a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <article class="article-full">
+                <h1>florr AFK</h1>
+                <div class="article-meta" style="margin-bottom: 1.5rem; color: var(--gray);">
+                    <span>作者：joy</span> | 
+                    <span>发布日期：2023-08-20</span> | 
+                    <span class="article-tag">性能优化</span>
+                </div>
+                
+                <h2>1. 加载性能优化</h2>
+                <p>通过以下方式提升页面加载速度：</p>
+                <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem;">
+                    <li>使用CDN加速静态资源</li>
+                    <li>启用Gzip压缩</li>
+                    <li>优化图片格式和尺寸</li>
+                </ul>
+                
+                <h2>2. 渲染性能优化</h2>
+                <p>减少重排和重绘：</p>
+                <pre style="background: #f5f5f5; padding: 1rem; border-radius: 6px; margin: 1rem 0;"><code>.element {
+    transform: translateX(100px); /* 使用transform代替top/left动画 */
+}</code></pre>
+                
+                <div class="article-actions" style="margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1.5rem;">
+                    <a href="../" class="read-more"><i class="fas fa-arrow-left"></i> 返回文章列表</a>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <script src="../../assets/js/particles.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                /* 与index.html相同的粒子配置 */
+            });
+
+            document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+                document.querySelector('.sidebar').classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>
