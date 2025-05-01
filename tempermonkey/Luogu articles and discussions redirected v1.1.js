@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         洛谷文章和讨论重定向
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  在页面左下角添加蓝色按钮，点击后根据当前URL跳转到指定地址
-// @author       TwT
+// @author       CFC studio
 // @match        *://www.luogu.com.cn/article/*
 // @match        *://www.luogu.com/article/*
 // @match        *://www.luogu.com.cn/discuss/*
